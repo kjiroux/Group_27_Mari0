@@ -6,18 +6,17 @@ require("box")
 require("physics")
 require("firework")
 require("flower")
+-- Image data
 cubedispenserimg = love.graphics.newImage("graphics/SMB/cubedispenser.png")
 pushbuttonimg = love.graphics.newImage("graphics/SMB/pushbutton.png")
-pushbuttonquad = {love.graphics.newQuad(0, 0, 16, 16, 32, 16), love.graphics.newQuad(16, 0, 16, 16, 32, 16)}
-pushbuttontime = 1
-cubedispensertime = 1
 buttonbaseimg = love.graphics.newImage("graphics/SMB/buttonbase.png")
 buttonbuttonimg = love.graphics.newImage("graphics/SMB/buttonbutton.png")
---fireballimg = love.graphics.newImage("graphics/SMB/fireball.png")
 flowerimg = love.graphics.newImage("graphics/SMB/flower.png")
-userects = {}
+-- global info
 xscroll = 0
 width = 100
+scale = 1
+-- Add userect for some reason this is needed.
 function adduserect(x, y, width, height, callback)
 	local t = {}
 	t.x = x
@@ -29,60 +28,72 @@ function adduserect(x, y, width, height, callback)
 	table.insert(userects, t)
 	return t
 end
-buttonx = 10
-buttony = 10
-scale = 1
+-- userects table
+userects = {}
+-- class tables
 butt = {}
 push = {}
 cubedisp = {}
---fireworkX = 30
---marioscore = 0
---fireworksoundtime = 0
---fireworkdelay = 0
---frame = 0
---fireballquad = {}
---for i = 1, 4 do
---	fireballquad[i] = love.graphics.newQuad((i-1)*8, 0, 8, 8, 80, 16)
---end
-
+-- Position variables
 flowerX = 20
 flowerY = 20
 
+buttonx = 10
+buttony = 10
+
+-- Quad tables go here
 flowerquad = {}
+
+-- Quad declarations if they are built as a table (no for loops)
+pushbuttonquad = {
+	love.graphics.newQuad(0, 0, 16, 16, 32, 16), 
+	love.graphics.newQuad(16, 0, 16, 16, 32, 16)
+}
+
+-- timer needs to be bigger than 0
 mushroomtime = 1
+pushbuttontime = 1
+cubedispensertime = 1
+
+
 staranimationdelay = 10
 
+-- Object tables
 objects = {}
 objects["button"] = {}
 objects["pushbutton"] = {}
 objects["cubedisp"] = {}
 objects["box"] = {}
--- objects["firework"] = {} 
+objects["firework"] = {} 
 
 
 custommusic = false
 
 
 test = {
-	load = function()
-			-- put code in test functions.
-			-- and required stuff above class declarations
+	load = function() -- load called one time, before update.
+		-- This is all the items needed before we can start running code in the update loop.
+		
+		-- Quad data when they use for loops
 		for i = 1, 4 do
 			flowerquad[i] = love.graphics.newQuad((i-1)*16, 0, 16, 16, 64, 16)
 		end
+
+		-- init class objects
 		push = pushbutton:new(buttonx-2,buttony,"left")
 		butt = button:new(buttonx,buttony)
 		cubedisp = cubedispenser:new(buttonx, buttony-5,5)
-		--fireworks = fireworkboom:new(fireworkX)
 		flowy = flower:new(flowerX, flowerY);
 	end,
-	update = function(dt)
+	update = function(dt) -- update, called every frame. put physics and movement code here
+		
+		-- class object update functions
 		push:update(dt)
 		butt:update(dt)
 		cubedisp:update(dt)
 		flowy:update(dt)
 	end,
-	draw = function()
+	draw = function() -- draw, called after every update frame. put all draw and print calls.
 		love.graphics.print("init function:",5,5)
 		if push.cox == buttonx and push.coy == buttony then
 			love.graphics.print("Yay",5,15)
@@ -106,7 +117,7 @@ test = {
 			love.graphics.print("FLOWER",250,250)
 		end
 	end,
-	keypress = function(key)
+	keypress = function(key) -- keypress, called on every keypress.
 		if key == 'q' then
 			push:used()
 		end
@@ -116,5 +127,8 @@ test = {
 		if key == 'r' then
 			
 		end
+	end
+	keyrelease = function(key) -- keyrelease, called on every keyrelease.
+		
 	end
 }
