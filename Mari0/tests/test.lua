@@ -1,5 +1,7 @@
 -- test.lua
 
+---------------------------------------
+
 -- require calls
 require("class")
 require("button")
@@ -9,16 +11,25 @@ require("box")
 require("physics")
 require("firework")
 require("flower")
+
+---------------------------------------
+
 -- Image data
 cubedispenserimg = love.graphics.newImage("graphics/SMB/cubedispenser.png")
 pushbuttonimg = love.graphics.newImage("graphics/SMB/pushbutton.png")
 buttonbaseimg = love.graphics.newImage("graphics/SMB/buttonbase.png")
 buttonbuttonimg = love.graphics.newImage("graphics/SMB/buttonbutton.png")
 flowerimg = love.graphics.newImage("graphics/SMB/flower.png")
+
+---------------------------------------
+
 -- global info
 xscroll = 0
 width = 100
 scale = 1
+
+---------------------------------------
+
 -- Add userect for some reason this is needed.
 function adduserect(x, y, width, height, callback)
 	local t = {}
@@ -31,12 +42,21 @@ function adduserect(x, y, width, height, callback)
 	table.insert(userects, t)
 	return t
 end
+
+---------------------------------------
+
 -- userects table
 userects = {}
+
+---------------------------------------
+
 -- class tables
 butt = {}
 push = {}
 cubedisp = {}
+
+---------------------------------------
+
 -- Position variables
 flowerX = 20
 flowerY = 20
@@ -44,14 +64,20 @@ flowerY = 20
 buttonx = 10
 buttony = 10
 
+---------------------------------------
+
 -- Quad tables go here
 flowerquad = {}
+
+---------------------------------------
 
 -- Quad declarations if they are built as a table (no for loops)
 pushbuttonquad = {
 	love.graphics.newQuad(0, 0, 16, 16, 32, 16), 
 	love.graphics.newQuad(16, 0, 16, 16, 32, 16)
 }
+
+---------------------------------------
 
 -- timer needs to be bigger than 0
 mushroomtime = 1
@@ -61,6 +87,8 @@ cubedispensertime = 1
 
 staranimationdelay = 10
 
+---------------------------------------
+
 -- Object tables
 objects = {}
 objects["button"] = {}
@@ -69,11 +97,12 @@ objects["cubedisp"] = {}
 objects["box"] = {}
 objects["firework"] = {} 
 
-
-custommusic = false
-
+---------------------------------------
 
 test = {
+
+	---------------------------------------
+
 	load = function() -- load called one time, before update.
 		-- This is all the items needed before we can start running code in the update loop.
 		
@@ -88,6 +117,9 @@ test = {
 		cubedisp = cubedispenser:new(buttonx, buttony-5,5)
 		flowy = flower:new(flowerX, flowerY);
 	end,
+
+	---------------------------------------
+
 	update = function(dt) -- update, called every frame. put physics and movement code here
 		
 		-- class object update functions
@@ -96,6 +128,9 @@ test = {
 		cubedisp:update(dt)
 		flowy:update(dt)
 	end,
+
+	---------------------------------------
+
 	draw = function() -- draw, called after every update frame. put all draw and print calls.
 		love.graphics.print("init function:",5,5)
 		if push.cox == buttonx and push.coy == buttony then
@@ -120,6 +155,9 @@ test = {
 			love.graphics.print("FLOWER",250,250)
 		end
 	end,
+
+	---------------------------------------
+
 	keypress = function(key) -- keypress, called on every keypress.
 		if key == 'q' then
 			push:used()
@@ -131,7 +169,14 @@ test = {
 			
 		end
 	end
+
+	---------------------------------------
+
 	keyrelease = function(key) -- keyrelease, called on every keyrelease.
 
 	end
+
+	---------------------------------------
 }
+
+---------------------------------------
