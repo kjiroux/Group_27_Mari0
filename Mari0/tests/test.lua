@@ -47,9 +47,6 @@ cubedisp = {}
 flowerX = 245
 flowerY = 245
 flowerquad = {}
-for i = 1, 4 do
-	flowerquad[i] = love.graphics.newQuad((i-1)*16, 0, 16, 16, 64, 16)
-end
 mushroomtime = 0
 staranimationdelay = 10
 
@@ -71,7 +68,10 @@ test = {
 		cubedisp = cubedispenser:new(buttonx, buttony-5,5)
 		--fireworks = fireworkboom:new(fireworkX)
 		flowy = flower:new(flowerX, flowerY);
-		
+		-- put code in test functions.
+		for i = 1, 4 do
+			flowerquad[i] = love.graphics.newQuad((i-1)*16, 0, 16, 16, 64, 16)
+		end
 	end,
 	update = function(dt)
 		push:update(dt)
