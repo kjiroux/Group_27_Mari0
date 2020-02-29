@@ -44,10 +44,12 @@ cubedisp = {}
 --for i = 1, 4 do
 --	fireballquad[i] = love.graphics.newQuad((i-1)*8, 0, 8, 8, 80, 16)
 --end
-flowerX = 245
-flowerY = 245
+
+flowerX = 20
+flowerY = 20
+
 flowerquad = {}
-mushroomtime = 0
+mushroomtime = 1
 staranimationdelay = 10
 
 objects = {}
@@ -63,21 +65,21 @@ custommusic = false
 
 test = {
 	load = function()
+			-- put code in test functions.
+			-- and required stuff above class declarations
+		for i = 1, 4 do
+			flowerquad[i] = love.graphics.newQuad((i-1)*16, 0, 16, 16, 64, 16)
+		end
 		push = pushbutton:new(buttonx-2,buttony,"left")
 		butt = button:new(buttonx,buttony)
 		cubedisp = cubedispenser:new(buttonx, buttony-5,5)
 		--fireworks = fireworkboom:new(fireworkX)
 		flowy = flower:new(flowerX, flowerY);
-		-- put code in test functions.
-		for i = 1, 4 do
-			flowerquad[i] = love.graphics.newQuad((i-1)*16, 0, 16, 16, 64, 16)
-		end
 	end,
 	update = function(dt)
 		push:update(dt)
 		butt:update(dt)
 		cubedisp:update(dt)
-		--fireworks:update(dt)
 		flowy:update(dt)
 	end,
 	draw = function()
